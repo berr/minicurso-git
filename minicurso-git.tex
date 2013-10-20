@@ -91,7 +91,7 @@
 \frame {
   \frametitle{Estrutura de um commit}
 
-  Um commit é composto por três partes: 
+  Um commit é composto por quatro partes: 
   \begin{itemize}
     \item Autor, informações do commiter, data
     \item Um snapshot dos arquivos do repositório
@@ -274,7 +274,7 @@
 
   \begin{itemize}
     \item Apontando para um branch. Assim, os commits feitos à partir de HEAD atualizarão o ponteiro do branch.
-    \item Apontando para uma tag ou commit. Esse estado é chamado de \textbf{detached HEAD} e os commits feitos só serão alcansáveis à partir de seus hashes.
+    \item Apontando para uma tag ou commit. Esse estado é chamado de \textbf{detached HEAD} e os commits feitos só serão alcançáveis à partir de seus hashes.
   \end{itemize}
 
 }
@@ -306,7 +306,7 @@
   Move o pointeiro do branch atual.
 
   \begin{block}{Cuidado}
-    O comando reset move o ponteiro do branch, e não a referência de HEAD, como o checkout. Ou seja, os commits do branch antigo não serão mais alcansados.
+    O comando reset move o ponteiro do branch, e não a referência de HEAD, como o checkout. Ou seja, os commits do branch antigo não serão mais alcançados.
   \end{block} 
 
 }
