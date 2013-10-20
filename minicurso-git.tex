@@ -73,12 +73,12 @@
 
   Existem 3 estados em que uma modificação pode estar
 
-  \begin{block}{Working directory}
+  \begin{block}{working tree}
     Mudanças, arquivos adicionados, arquivos removidos.
   \end{block}
 
   \begin{block}{Staging area}
-    Snapshots de coisas do Working directory que serão commitados.
+    Snapshots de arquivos da working tree que serão commitados.
   \end{block}
 
   \begin{block}{Repositório}
@@ -170,8 +170,11 @@
   \frametitle{git init}
 
   Um repositório é criado executando o comando \textbf{git init}.\\
-
-  Agora já podemos começar o trabalho =)
+  
+  Durante este mini-curso, utilizares um repositório de exemplo.
+  \begin{alertblock}{Execute}
+    \textbf{git clone https://github.com/berr/minicurso-git.git}
+  \end{alertblock}  
 }
 
 
@@ -182,19 +185,23 @@
 
   \begin{alertblock}{Lembre-se}
     Um snapshot do arquivo é guardado na \textbf{staging area}. Caso mais modificações sejam feitas, elas precisam ser adicionadas de novo.
-  \end{alertblock}  
+  \end{alertblock}
+
+  \begin{alertblock}{Dica}
+    O comando \textbf{git add .} adiciona recursivamente todos os arquivos do diretório atual e seus sub-diretórios à staging area.
+  \end{alertblock}
 
 }
 
 \frame{
   \frametitle{git status e git diff}
 
-  Como está o nosso \textbf{working directory} e \textbf{staging area}?
+  Como está a nossa \textbf{working tree} e \textbf{staging area}?
 
   \begin{itemize}
     \item O comando \textbf{git status} nos mostra o estado atual do repositório, além de algumas outras dicas, que veremos em breve. 
 
-    \item O comando \textbf{git diff} nos mostra as diferenças entre o \textbf{working directory} e o último commit. 
+    \item O comando \textbf{git diff} nos mostra as diferenças entre a \textbf{working tree} e o último commit. 
     \item Para ver mudanças apenas da \textbf{staging area} use \textbf{git diff -{}-cached}.
   \end{itemize}
 
@@ -202,14 +209,14 @@
 
 
 \frame{
-  \frametitle{git remove}
+  \frametitle{git rm}
 
   Às vezes precisamos remover um arquivo do nosso repositório.
-  Podemos atingir esse objetivo com o comando \textbf{git remove <arquivo>}
+  Podemos atingir esse objetivo com o comando \textbf{git rm <arquivo>}
 
   \begin{alertblock}{Cuidado}
-    O comando \textbf{git remove} também deleta o arquivo do sistema. \\
-    Utilize a \textbf{git remove -{}-cached <arquivo>} para manter ele em disco.
+    O comando \textbf{git rm} também deleta o arquivo do sistema. \\
+    Utilize a \textbf{git rm -{}-cached <arquivo>} para manter ele em disco.
   \end{alertblock}
 
   \begin{alertblock}{Lembre-se}
@@ -223,10 +230,10 @@
 
   Com as mudanças adicionadas à \textbf{staging area} podemos fazer o nosso primeiro commit com \textbf{git commit}
 
-  O editor que configuramos com \emph{core.editor} será chamado e poderemos ver as nossas mudanças e editar a nossa mensagem de commit.
+  O editor que configuramos com \emph{core.editor} será chamado e poderemos ver os arquivos modificados e editar a mensagem de commit.
 
   \begin{block}{Boa prática}
-    Uma boa mensagem de commit é composta de duas partes separadas por uma linha em branco: Uma mensagem de até 80 caracteres que descreve brevemente o commit. E, se necessário, uma melhor descrição do commit.
+    Uma boa mensagem de commit é composta de duas partes separadas por uma linha em branco: Uma mensagem de até 80 caracteres que descreve brevemente o commit. E, se necessário, uma melhor descrição após uma linha em branco.
   \end{block}
 
   \begin{block}{Commit message}
@@ -236,12 +243,30 @@
 }
 
 \frame{
+  \frametitle{Commit temporário}
+
+  O comando \textbf{git stash} permime guardar as modificações locais rapidamente para, por exemplo, poder trocar de branch.
+
+  \begin{block}{git stash}
+    Guarda as modificações locais em uma pilha
+  \end{block}
+
+  \begin{block}{git stash pop}
+    Remove a última modificação guardada com \textbf{git stash} e aplica na \textbf{working tree}
+  \end{block}
+  
+
+}
+
+\frame{
   \frametitle{git log}
 
   A qualquer momento podemos ver como está o repositório com o comando \textbf{git log}
 
   \begin{block}{Formatação}
     A saída do comando é totalmente configurável. Não esqueça de ver as opções com \textbf{git help log}.
+
+    A minha formatação preferida: \textbf{git log -{}-pretty=format:``\%h \%ad | \%s\%d [\%an]'' -{}-graph -{}-date=short}
   \end{block}
 
 }
@@ -295,8 +320,12 @@
   Move o ponteiro de HEAD para a o destino especificado (branch, tag, commit)
 
   \begin{block}{Obtendo um arquivo de outro commit}
-    Para trazer para o \textbf{working directory} o arquivo X no commit Y, execute \textbf{git checkout Y -{}- X}.
+    Para trazer para a \textbf{working tree} o arquivo X no commit Y, execute \textbf{git checkout Y -{}- X}.
   \end{block}
+
+  \begin{block}{Dica}
+    O comando \textbf{git reflog} mostra o histórico do ponteiro \textbf{HEAD}, e é útil para se recuperar em situações desastrosas.
+  \end{block}  
 
 }
 
@@ -359,12 +388,7 @@
   
   \begin{block}{Lembre-se}
     O comando \textbf{git status} nos dá informações sobre conflitos que ocorreram.
-  \end{block}
-
-  \begin{block}{Exemplo}
-    O arquivo \textbf{merge-conflict.tar.bz2} contém um exemplo de um conflito para vocês resolverem.
-  \end{block}
-  
+  \end{block}  
 
 }
 
@@ -447,15 +471,16 @@
   \begin{itemize}
     \item \textbf{git fetch}: apenas baixa as informações sobre os servidores remotos
     \item \textbf{git pull}: a mesma coisa que \textbf{fetch}, mas faz merge do branch atual com o seu respectivo remoto.
-    \item \textbf{git push}: lança as atualizações para o servidor de todos os branches locais que têm um branch remoto associado.
+    \item \textbf{git push}: atualiza os servidores remotos com as mudanças locais
   \end{itemize}
 
 }
 
 \frame{
-  \frametitle{Referências}
+  \frametitle{Referências remotas}
 
-  As referências de servidores remotos têm como prefixo o nome do remoto. E o nome do primeiro \textbf{remote} geralmente é ``origin''.
+  As referências de servidores remotos têm como prefixo o nome do servidor remoto.\\
+  O nome do primeiro \textbf{remote} geralmente é ``origin''.
 
   
   \begin{center}
@@ -486,16 +511,54 @@
   Somente commits que sejam \textbf{fast forward} serão atualizados no servidor.
 
   \begin{block}{Criando um branch remoto}
-    Por padrão, todos os branches são locais. Para criar um branch no servidor, utilize:\\
-    \textbf{git push -u <remote> <branch-local>} (a opção \textbf{-u} configura o seu repositório para associar o branch remoto ao local).
+    \textbf{git push -u <remote> <branch-local>} \\
+    A opção \textbf{-u} configura o seu repositório para associar o branch remoto ao local.
+  \end{block}
+
+  \begin{block}{Deletando um branch remoto}
+    \textbf{git push <remote> :<branch-remoto>}
   \end{block}
 
   \begin{block}{Enviando tags}
-    Por padrão as tags também são locais. Para enviar uma tag para um servidor, utilize:\\
     \textbf{git push <remote> <tag-local>}.\\
     Note: A opção \textbf{-{}-tags} transferirá \textbf{todas} as tags locais para o servidor.
   \end{block}
 }
+
+
+\section{Outros}
+
+\subsection{Hospedagem}
+
+\frame{
+  \frametitle{}
+
+  \begin{block}{GitHub}
+    \href{https://github.com/}{https://github.com/}\\
+
+    Conta com repositórios privados gratuita em: \href{https://github.com/edu}{https://github.com/edu}
+  \end{block}
+
+  \begin{block}{BitBucket}
+    \href{https://bitbucket.org}{https://bitbucket.org}
+  \end{block}
+}
+
+\subsection{Ferramentas}
+
+\frame{
+
+  \frametitle{}
+  
+  \begin{itemize}
+    \item \href{http://www.eclipse.org/egit/}{EGit} --  Plugin para eclipse
+    \item \textbf{git-gui} -- Geralmente distribuído com o git
+    \item \href{http://code.google.com/p/gitextensions}{GitExtensions} -- Front-end gráfico para windows
+    \item Mais informações na \href{https://git.wiki.kernel.org/index.php/Interfaces,_frontends,_and_tools}{wiki oficial}
+  \end{itemize}
+
+}
+
 
 \end{document}
 
