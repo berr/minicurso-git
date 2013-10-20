@@ -73,7 +73,7 @@
 
   Existem 3 estados em que uma modificação pode estar
 
-  \begin{block}{working tree}
+  \begin{block}{Working tree}
     Mudanças, arquivos adicionados, arquivos removidos.
   \end{block}
 
@@ -106,7 +106,7 @@
 
 
 \frame{
-  \frametitle{Exemplo de commits}
+  \frametitle{Exemplo de repositórios}
 
   \begin{center}
     \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{Imagens/ex-repo.png}
@@ -245,7 +245,7 @@
 \frame{
   \frametitle{Commit temporário}
 
-  O comando \textbf{git stash} permime guardar as modificações locais rapidamente para, por exemplo, poder trocar de branch.
+  O comando \textbf{git stash} permite guardar as modificações locais rapidamente para, por exemplo, poder trocar de branch.
 
   \begin{block}{git stash}
     Guarda as modificações locais em uma pilha
@@ -298,7 +298,7 @@
   \textbf{HEAD} é a referência para onde estamos. Pode estar em dois estados:
 
   \begin{itemize}
-    \item Apontando para um branch. Assim, os commits feitos à partir de HEAD atualizarão o ponteiro do branch.
+    \item Apontando para um branch. Assim, os commits feitos à partir de \textbf{HEAD} atualizarão o ponteiro do branch.
     \item Apontando para uma tag ou commit. Esse estado é chamado de \textbf{detached HEAD} e os commits feitos só serão alcançáveis à partir de seus hashes.
   \end{itemize}
 
@@ -317,7 +317,7 @@
 \frame{
   \frametitle{git checkout}
 
-  Move o ponteiro de HEAD para a o destino especificado (branch, tag, commit)
+  Move o ponteiro de \textbf{HEAD} para a o destino especificado (branch, tag, commit)
 
   \begin{block}{Obtendo um arquivo de outro commit}
     Para trazer para a \textbf{working tree} o arquivo X no commit Y, execute \textbf{git checkout Y -{}- X}.
@@ -335,7 +335,7 @@
   Move o pointeiro do branch atual.
 
   \begin{block}{Cuidado}
-    O comando reset move o ponteiro do branch, e não a referência de HEAD, como o checkout. Ou seja, os commits do branch antigo não serão mais alcançados.
+    O comando reset move o ponteiro do branch, e não a referência de \textbf{HEAD}, como o checkout. Ou seja, os commits do branch antigo não serão mais alcançados.
   \end{block} 
 
 }
